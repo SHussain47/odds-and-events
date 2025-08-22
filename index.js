@@ -10,7 +10,8 @@ function addToBank(num) {
 }
 
 function addRandomNum() {
-  bank.push(Math.floor(Math.random() * 201));
+  const num = Math.floor(Math.random() * 201);
+  addToBank(num);
 }
 
 function sortBank(num) {
@@ -39,7 +40,7 @@ function sortAll() {
 
 // =============== COMPONENTS / DISPLAY ===============
 
-function oddEvenForm() {
+function OddEvenForm() {
   const $form = document.createElement("form");
   $form.innerHTML = `
     <label>
@@ -47,6 +48,7 @@ function oddEvenForm() {
       <input name="oddEven" type="text" placeholder="Enter number" />
     </label>
     <button type="submit" data-action="add">Add Number</button>
+    <button type="submit" data-action="randomNum">Add Random Number</button>
     <button type="submit" data-action="sortOne">Sort One</button>
     <button type="submit" data-action="sortAll">Sort All</button>
   `;
@@ -57,8 +59,17 @@ function oddEvenForm() {
     const data = new FormData($form);
     const userInputtedNum = data.get("oddEven").trim();
 
+    const $input = $form.querySelector("[name = 'oddEven']");
+
     if (action === "add" && userInputtedNum !== "") {
-      addToBank(userInputtedNum);
+      if (isNaN(userInputtedNum)) {
+        $input.value = "";
+        alert("Please enter a valid number")
+      } else {
+        addToBank(userInputtedNum);
+      }
+    } else if (action === "randomNum"){
+      addRandomNum();
     } else if (action === "sortOne") {
       sortOne();
     } else if (action === "sortAll") {
@@ -69,18 +80,41 @@ function oddEvenForm() {
   return $form;
 }
 
+function OddEvenGroup(title, nums) {
+  const $section = document.createElement("section");
+  $section.innerHTML = `
+  <h2>${title}</h2>
+  <p class = "oddEvenBox"></p>
+  `;
 
+  const $box = $section.querySelector(".oddEvenBox");
 
+  // Takes the array [nums] from parameters and joins them with ", "
+  $box.textContent = nums.join(", ");
 
-
+  return $section;
+}
 
 
 // =============== RENDER ===============
 
 function render() {
-  
+  const $root = document.querySelector("#root");
+  $root.innerHTML = `
+    <h1>Odds and Evens</h1>
+    <OddEvenForm></OddEvenForm>
+    <OddEvenGroup id="bank"></OddEvenGroup>
+    <OddEvenGroup id="odds"></OddEvenGroup>
+    <OddEvenGroup id="evens"></OddEvenGroup>
+  `;
+
+  $root.querySelector("OddEvenForm").replaceWith(OddEvenForm());
+  $root.querySelector("OddEvenGroup#bank").replaceWith(OddEvenGroup("Bank", bank));
+  $root.querySelector("OddEvenGroup#odds").replaceWith(OddEvenGroup("Odds", odds));
+  $root.querySelector("OddEvenGroup#evens").replaceWith(OddEvenGroup("Evens", evens));
 }
 
+render();
 
 
 
