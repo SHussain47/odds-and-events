@@ -37,7 +37,6 @@ function sortAll() {
   render();
 }
 
-
 // =============== COMPONENTS / DISPLAY ===============
 
 function OddEvenForm() {
@@ -64,11 +63,11 @@ function OddEvenForm() {
     if (action === "add" && userInputtedNum !== "") {
       if (isNaN(userInputtedNum)) {
         $input.value = "";
-        alert("Please enter a valid number")
+        alert("Please enter a valid number");
       } else {
         addToBank(userInputtedNum);
       }
-    } else if (action === "randomNum"){
+    } else if (action === "randomNum") {
       addRandomNum();
     } else if (action === "sortOne") {
       sortOne();
@@ -97,7 +96,6 @@ function OddEvenGroup(title, nums) {
   return $section;
 }
 
-
 // =============== RENDER ===============
 
 function render() {
@@ -117,9 +115,3 @@ function render() {
 }
 
 render();
-
-
-
-
-
-
