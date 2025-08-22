@@ -87,6 +87,8 @@ function OddEvenGroup(title, nums) {
   <p class = "oddEvenBox"></p>
   `;
 
+  // Finds the <p> we just created inside the section
+  // Stores it in the variable $box so we can put the numbers inside
   const $box = $section.querySelector(".oddEvenBox");
 
   // Takes the array [nums] from parameters and joins them with ", "
